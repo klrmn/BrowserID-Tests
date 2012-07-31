@@ -35,7 +35,7 @@ class SignUpPage(Page):
             lambda s: \
                 self.is_element_visible(*self._password_field_locator) and \
                 self.is_element_visible(*self._password_verify_field_locator), \
-            "Password fields did not appear within %s" % self.timeout 
+            "Password fields did not appear within %s" % self.timeout
         )
 
     def fill_password_field(self, password):
@@ -47,10 +47,10 @@ class SignUpPage(Page):
     def sign_up(self, user):
         """Takes a user (Mock or credentials) and does all the steps to prompt verification email."""
         # fill email and verify
-        self.fill_email_field(user['email'])
+        self.fill_email_field(self._get_email_from_user(user))
         self.request_verify_email()
         # password fields should become visible
-        self.wait_for_password_fields() # will throw error on Timeout
+        self.wait_for_password_fields()  # will throw error on Timeout
         # fill password fields and verify again
         self.fill_password_field(user['password'])
         self.fill_password_verify_field(user['password'])
@@ -59,7 +59,7 @@ class SignUpPage(Page):
     def do_verify_email(self, user):
         """Takes (Mock) User, checks their email, finds the link and loads it."""
 
-        inbox = RestmailInbox(user['email'])
+        inbox = RestmailInbox(self._get_email_from_user(user))
         email = inbox.find_by_index(0)
 
         # Load the BrowserID link from the email in the browser

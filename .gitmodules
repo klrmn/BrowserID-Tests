@@ -4,3 +4,6 @@
 [submodule "123done/browserid"]
         path = 123done/browserid
         url = git://github.com/davehunt/bidpom.git
+[submodule "persona_server/browserid"]
+	path = persona_server/browserid
+	url = git://github.com/davehunt/bidpom.git

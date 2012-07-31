@@ -33,4 +33,3 @@ class HomePage(Page):
 
     def sign_out(self):
         self.selenium.find_element(*self._sign_out_locator).click()
-

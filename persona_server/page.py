@@ -30,7 +30,7 @@ class Page(object):
         if self._page_url:
             self.selenium.get(self.base_url + self._page_url)
             self.is_the_current_page
-        ### do something if _page_url doesn't exist?        
+        ### do something if _page_url doesn't exist?
 
     def is_element_present(self, *locator):
         self.selenium.implicitly_wait(0)
@@ -48,3 +48,12 @@ class Page(object):
             return self.selenium.find_element(*locator).is_displayed()
         except NoSuchElementException, ElementNotVisibleException:
             return False
+
+    def _get_email_from_user(self, user):
+        """Handles the differing formats of BIDPOM MockUsers vs credentials users."""
+        email = ""
+        try:
+            email = user['primary_email']
+        except KeyError:
+            email = user['email']
+        return email
